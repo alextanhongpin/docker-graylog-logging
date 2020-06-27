@@ -2,7 +2,11 @@ version: '3'
 services:
   # MongoDB: https://hub.docker.com/_/mongo/
   mongo:
-    image: mongo:3
+    # The version supported by graylog.
+    # https://docs.graylog.org/en/3.3/pages/installation.html
+    image: mongo:4.2
+    ports:
+      - 127.0.0.1:27017:27017
     networks:
       - graylog
   # Elasticsearch: https://www.elastic.co/guide/en/elasticsearch/reference/6.x/docker.html

@@ -5,11 +5,16 @@ import (
 	"log"
 	"net/http"
 	"time"
+
+	"go.uber.org/zap"
 )
 
 func main() {
+	logger, _ := zap.NewProduction()
+	defer logger.Sync()
+
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		log.Printf("hello world %s\n", time.Now().String())
+		logger.Info("hello world", zap.Time("now", time.Now()))
 		fmt.Fprintf(w, "hello world")
 	})
 	log.Println("listening on port *:8080. press ctrl + c to cancel")
